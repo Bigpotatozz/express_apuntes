@@ -2,8 +2,10 @@
 import  express  from "express";
 import hbs from 'hbs';
 import path  from "path";
+import dotenv from 'dotenv';
+dotenv.config();
 const app = express();
-
+const PORT = process.env.PORT;
 import * as url from 'url';
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -35,4 +37,4 @@ app.get('/elements', (req, res) => {
     });
 })
 
-app.listen(8080);
+app.listen(PORT);
