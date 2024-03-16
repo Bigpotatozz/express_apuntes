@@ -1,28 +1,38 @@
 //SERVIDOR EN EXPRESS
 import  express  from "express";
+import hbs from 'hbs';
+import path  from "path";
 const app = express();
 
 import * as url from 'url';
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-app.use(express.static("public"));
+app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
+app.use(express.static('public'))
 
 
-app.get("/test", (req, res) => {
+app.get('/', (req, res) => {
+    res.render('home', {
+        nombre: "Pagina de node",
+        descripcion: "Fernando herrera"
+    });
+});
 
-    res.send("Hello world with express");
-    res.end();
-})
-app.get("/regino", (req, res) => {
-    res.send("Chinga tu madre regino");
-    res.end();
-})
+app.get('/generic', (req, res) => {
 
+    res.render('generic', {
+        nombre: "Pagina de node",
+        descripcion: "Fernando herrera"
+    });
+});
 
-app.get("/generic", (req, res) => {
-
-    res.sendFile(__dirname + "/public/generic.html")
+app.get('/elements', (req, res) => {
+    res.render('elements', {
+        nombre: "Pagina de node",
+        descripcion: "Fernando herrera"
+    });
 })
 
 app.listen(8080);
